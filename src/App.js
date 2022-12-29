@@ -1,46 +1,31 @@
-import React, {useEffect, useState} from 'react';
-// import MessageList from "./components/MessageList/MessageList";
-// import NewMessage from "./components/NewMessage/NewMessage";
-import ChatList from "./components/ChatList/ChatList";
-import Chat from "./components/Chat/Chat";
+import React, {useState} from 'react';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import NavBar from './components/NavBar/NavBar';
+import MainPage from './Pages/MainPage';
+import Profile from './Pages/Profile';
+import ChatsPage from './Pages/ChatsPage';
 
 
-export const App = () => {
-    const [messageList, setMessageList] = useState([]);
-    const [chatList, setChatList] = useState([
-        {id: 1, name: 'Main'},
-        {id: 2, name: 'Support'},
-    ]);
-
-    const addMessage = newMessage => {
-        setMessageList([...messageList, newMessage])
-    }
-
-    useEffect(() => {
-        if (messageList.length > 0 && messageList[messageList.length - 1].author !== 'Bot') {
-            const timeout = setTimeout(() => {
-                addMessage({
-                    author: 'Bot',
-                    text: 'Hey, glad to see you here!'
-                })
-            }, 1500)
-            return () => {
-                clearTimeout(timeout);
-            }
-        }
-    }, [messageList])
+const App = () => {
+    const [chatsList, setChatsList] = useState([]);
 
     return (
-        <div style={{display: 'flex', gap: '1rem'}}>
-            <ChatList chats={chatList}/>
-            <Chat messages={messageList} addMessage={addMessage} />
-            {/*<div style={{width: '100%', paddingRight: '1rem'}}>*/}
-            {/*    <div><h2>Chat Name</h2></div>*/}
-            {/*    <MessageList messages={messageList}/>*/}
-            {/*    <NewMessage addMessage={addMessage}/>*/}
-            {/*</div>*/}
-        </div>
+        <BrowserRouter>
+            <div className='wrapper'>
+                <Routes>
+                    <Route path='/' element={<NavBar/>}>
+                        <Route index element={<MainPage/>}/>
+                        <Route path='profile' element={<Profile/>}/>
+                        <Route path={'chats'}>
+                            <Route index element={<ChatsPage/>}/>
+                            <Route path={':chatId'} element={<ChatsPage chat={''}/>}/>
+                        </Route>
+                        <Route path={'*'} element={<p>404 Page Not Found</p>}/>
+                    </Route>
+                </Routes>
+            </div>
+        </BrowserRouter>
     );
 };
 
-// export default App;
+export default App;

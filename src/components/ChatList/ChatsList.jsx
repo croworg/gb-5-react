@@ -1,10 +1,8 @@
 import React from "react";
 import {Divider, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
+import {Link} from "react-router-dom";
 
-// import styles from './ChatList.module.css'
-// import Message from "../Message/Message";
-
-const ChatList = (props) => {
+export const ChatsList = (props) => {
     return (
         <nav
             style={{width: '200px', flex: '0 0 200px'}}
@@ -15,7 +13,8 @@ const ChatList = (props) => {
                     <div key={item.id}>
                         <ListItem disablePadding>
                             <ListItemButton>
-                                <ListItemText primary={item.name}/>
+                                <Link to={`/chat/${item.id}`}>{item.name}</Link>
+                                {/*<ListItemText primary={item.name}/>*/}
                             </ListItemButton>
                         </ListItem>
                         <Divider/>
@@ -30,5 +29,3 @@ const ChatList = (props) => {
         </nav>
     );
 };
-
-export default ChatList;

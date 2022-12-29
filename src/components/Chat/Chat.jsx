@@ -1,10 +1,10 @@
 import React from 'react';
-import MessageList from "../MessageList/MessageList";
-import NewMessage from "../NewMessage/NewMessage";
+import {MessageList} from "../MessageList/MessageList";
+import {NewMessage} from "../NewMessage/NewMessage";
 
 import styles from './Chat.module.css';
 
-const Chat = (props) => {
+export const Chat = (props) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.heading}><h2>Chat Name</h2></div>
@@ -13,5 +13,3 @@ const Chat = (props) => {
         </div>
     );
 };
-
-export default Chat;
