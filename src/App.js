@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {nanoid} from 'nanoid';
 
 import NavBar from './components/NavBar/NavBar';
@@ -7,11 +7,12 @@ import MainPage from './Pages/MainPage';
 import ProfilePage from './Pages/ProfilePage';
 import ChatsPage from './Pages/ChatsPage';
 import {ChatsList} from "./components/ChatList/ChatsList";
-import shadows from "@mui/material/styles/shadows";
+import {Provider} from "react-redux";
+import {store} from './store'
 
 
 const defaultMessages = {
-    support: [
+    Support: [
         {
             author: 'user',
             text: 'Welcome! We glad to see you here!'
@@ -24,7 +25,6 @@ const defaultMessages = {
 };
 
 const App = () => {
-    console.log(defaultMessages);
     const [chats, setChats] = useState(defaultMessages);
 
     const chatsList = Object.keys(chats).map((chat) => ({
@@ -41,10 +41,10 @@ const App = () => {
 
     const onAddMessage = text => {
         console.log('message text', text);
-    }
+    };
 
     return (
-        <BrowserRouter>
+        <Provider store={store}>
             <div className='wrapper'>
                 <Routes>
                     <Route path='/' element={<NavBar/>}>
@@ -53,8 +53,10 @@ const App = () => {
                         <Route path={'chats'}>
                             <Route
                                 index
-                                element={<ChatsList chats={chatsList} />}
-                                onAddChat={onAddChat}
+                                element={<ChatsList
+                                    chats={chatsList}
+                                    onAddChat={onAddChat}
+                                />}
                             />
                             <Route
                                 path={':chatId'}
@@ -69,7 +71,7 @@ const App = () => {
                     </Route>
                 </Routes>
             </div>
-        </BrowserRouter>
+        </Provider>
     );
 };
 
