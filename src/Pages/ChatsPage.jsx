@@ -3,7 +3,7 @@ import {ChatsList} from '../components/ChatList/ChatsList';
 import {Chat} from '../components/Chat/Chat';
 
 
-const ChatsPage = () => {
+const ChatsPage = (props) => {
     const [messageList, setMessageList] = useState([]);
     const [chatList, setChatList] = useState([
         {id: 1, name: 'Users'},
@@ -34,7 +34,7 @@ const ChatsPage = () => {
             height: '100%',
             overflow: 'hidden'
         }}>
-            <ChatsList chats={chatList}/>
+            <ChatsList chats={props.chats}/>
             <Chat messages={messageList} addMessage={addMessage} />
         </div>
     );

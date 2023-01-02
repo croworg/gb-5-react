@@ -13,7 +13,7 @@ export const ChatsList = (props) => {
                     <div key={item.id}>
                         <ListItem disablePadding>
                             <ListItemButton>
-                                <Link to={`/chat/${item.id}`}>{item.name}</Link>
+                                <Link to={`/chats/${item.id}`}>{item.name}</Link>
                                 {/*<ListItemText primary={item.name}/>*/}
                             </ListItemButton>
                         </ListItem>
