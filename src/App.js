@@ -1,46 +1,78 @@
-import React, {useEffect, useState} from 'react';
-// import MessageList from "./components/MessageList/MessageList";
-// import NewMessage from "./components/NewMessage/NewMessage";
-import ChatList from "./components/ChatList/ChatList";
-import Chat from "./components/Chat/Chat";
+import React, {useState} from 'react';
+import {Route, Routes} from "react-router-dom";
+import {nanoid} from 'nanoid';
+
+import NavBar from './components/NavBar/NavBar';
+import MainPage from './Pages/MainPage';
+import ProfilePage from './Pages/ProfilePage';
+import ChatsPage from './Pages/ChatsPage';
+import {ChatsList} from "./components/ChatList/ChatsList";
+import {Provider} from "react-redux";
+import {store} from './store'
 
 
-export const App = () => {
-    const [messageList, setMessageList] = useState([]);
-    const [chatList, setChatList] = useState([
-        {id: 1, name: 'Main'},
-        {id: 2, name: 'Support'},
-    ]);
-
-    const addMessage = newMessage => {
-        setMessageList([...messageList, newMessage])
-    }
-
-    useEffect(() => {
-        if (messageList.length > 0 && messageList[messageList.length - 1].author !== 'Bot') {
-            const timeout = setTimeout(() => {
-                addMessage({
-                    author: 'Bot',
-                    text: 'Hey, glad to see you here!'
-                })
-            }, 1500)
-            return () => {
-                clearTimeout(timeout);
-            }
+const defaultMessages = {
+    Support: [
+        {
+            author: 'user',
+            text: 'Welcome! We glad to see you here!'
+        },
+        {
+            author: 'user',
+            text: 'Message two'
         }
-    }, [messageList])
+    ]
+};
+
+const App = () => {
+    const [chats, setChats] = useState(defaultMessages);
+
+    const chatsList = Object.keys(chats).map((chat) => ({
+        id: nanoid(),
+        name: chat
+    }));
+
+    const onAddChat = (newChat) => {
+        setChats({
+            ...chats,
+            [newChat.name]: []
+        })
+    };
+
+    const onAddMessage = text => {
+        console.log('message text', text);
+    };
 
     return (
-        <div style={{display: 'flex', gap: '1rem'}}>
-            <ChatList chats={chatList}/>
-            <Chat messages={messageList} addMessage={addMessage} />
-            {/*<div style={{width: '100%', paddingRight: '1rem'}}>*/}
-            {/*    <div><h2>Chat Name</h2></div>*/}
-            {/*    <MessageList messages={messageList}/>*/}
-            {/*    <NewMessage addMessage={addMessage}/>*/}
-            {/*</div>*/}
-        </div>
+        <Provider store={store}>
+            <div className='wrapper'>
+                <Routes>
+                    <Route path='/' element={<NavBar/>}>
+                        <Route index element={<MainPage/>}/>
+                        <Route path='profile' element={<ProfilePage/>}/>
+                        <Route path={'chats'}>
+                            <Route
+                                index
+                                element={<ChatsList
+                                    chats={chatsList}
+                                    onAddChat={onAddChat}
+                                />}
+                            />
+                            <Route
+                                path={':chatId'}
+                                element={<ChatsPage
+                                    chats={chatsList}
+                                    onAddMessage={onAddMessage}
+                                    onAddChat={onAddChat}
+                                />}
+                            />
+                        </Route>
+                        <Route path={'*'} element={<p>404 Page Not Found</p>}/>
+                    </Route>
+                </Routes>
+            </div>
+        </Provider>
     );
 };
 
-// export default App;
+export default App;
