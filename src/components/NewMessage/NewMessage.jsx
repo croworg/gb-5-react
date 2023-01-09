@@ -1,21 +1,31 @@
-import React, {useEffect, useRef, useState} from 'react';
-import MuiTextField from '@mui/material/TextField'
-import MuiButton from '@mui/material/Button'
-// css
 import styles from './NewMessage.module.css';
 
-export const NewMessage = ({addMessage}) => {
-    const [text, setText] = useState('');
-    const inputRef = useRef(null);
+import React, {useEffect, useRef, useState} from 'react';
+import {useParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
+
+import {addMessageWithReply} from "../../store/messages/actions";
+
+import MuiTextField from '@mui/material/TextField'
+import MuiButton from '@mui/material/Button'
+
+export const NewMessage = () => {
     const timestamp = Date.now();
+    const [text, setText] = useState('');
+    const {chatId} = useParams();
+    const dispatch = useDispatch();
+
+    const inputRef = useRef(null);
 
     const handleSubmit = e => {
         e.preventDefault();
-        text && addMessage({
+        // text &&
+        dispatch(addMessageWithReply(chatId, {
             author: 'Me',
             timestamp,
             text
-        });
+        }));
+        // console.log('chatId: ', chatId, ', messageText: ', text);
         setText('');
         inputRef.current?.focus();
     }

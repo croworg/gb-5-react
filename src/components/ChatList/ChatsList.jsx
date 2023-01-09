@@ -6,21 +6,15 @@ import {addChat, deleteChat} from "../../store/messages/actions";
 import {selectChat} from "../../store/messages/selectors";
 import Button from "@mui/material/Button";
 
-export const ChatsList = ({onAddChat}) => {
+export const ChatsList = () => {
     const [value, setValue] = useState('');
     const dispatch = useDispatch();
     const chats = useSelector(selectChat)
-
-    console.log('chats', chats);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!value) return console.warn('Empty chatname!');
         dispatch(addChat(value));
-        // onAddChat({
-        //     id: nanoid(),
-        //     name: value
-        // });
         setValue('');
     };
 
@@ -39,7 +33,6 @@ export const ChatsList = ({onAddChat}) => {
                                     justifyContent: 'space-between'
                                 }}>
                                 <Link to={`/chats/${item.name}`}>{item.name}</Link>
-                                {/*<ListItemText primary={item.name}/>*/}
                                 <Button
                                     style={{
                                         fontSize: '130%',

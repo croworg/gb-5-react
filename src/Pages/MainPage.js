@@ -2,8 +2,8 @@ import React from 'react';
 
 export const MainPage = () => {
     return (
-        <>
-            <h2>Welcome to MainPage</h2>
-        </>
+        <div style={{margin: '1rem'}}>
+            <h2>Main Page</h2>
+        </div>
     );
 };
