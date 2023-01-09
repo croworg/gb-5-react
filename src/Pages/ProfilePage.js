@@ -6,7 +6,7 @@ import {selectName, selectVisible} from "../store/profile/selector";
 import Button from "@mui/material/Button";
 import {Checkbox, TextField} from "@mui/material";
 
-const ProfilePage = () => {
+export const ProfilePage = () => {
     const name = useSelector(selectName);
     const visible = useSelector(selectVisible);
 
@@ -48,5 +48,3 @@ const ProfilePage = () => {
         </div>
     );
 };
-
-export default ProfilePage;

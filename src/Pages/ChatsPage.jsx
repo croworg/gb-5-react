@@ -6,7 +6,7 @@ import {WithClasses} from "../HOC/WithClasses";
 import {MessageList} from "../components/MessageList/MessageList";
 
 
-const ChatsPage = ({onAddChat, onAddMessage, chats}) => {
+export const ChatsPage = ({onAddChat, onAddMessage, chats}) => {
     const {chatId} = useParams();
 
     const MessageListWithClass = WithClasses(MessageList);
@@ -47,5 +47,3 @@ const ChatsPage = ({onAddChat, onAddMessage, chats}) => {
         </div>
     );
 };
-
-export default ChatsPage;

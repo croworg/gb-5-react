@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
 import {Route, Routes} from "react-router-dom";
+import {Provider} from "react-redux";
+import {useState} from 'react';
 import {nanoid} from 'nanoid';
 
-import NavBar from './components/NavBar/NavBar';
-import MainPage from './Pages/MainPage';
-import ProfilePage from './Pages/ProfilePage';
-import ChatsPage from './Pages/ChatsPage';
-import {ChatsList} from "./components/ChatList/ChatsList";
-import {Provider} from "react-redux";
 import {store} from './store'
+
+import {NavBar} from './components/NavBar/NavBar';
+import {MainPage} from './Pages/MainPage';
+import {ProfilePage} from './Pages/ProfilePage';
+import {ChatsPage} from './Pages/ChatsPage';
+import {ChatsList} from "./components/ChatList/ChatsList";
 
 
 const defaultMessages = {
