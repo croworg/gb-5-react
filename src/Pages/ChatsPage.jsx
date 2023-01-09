@@ -1,14 +1,22 @@
 import React, {useEffect, useState} from 'react';
+import {useParams} from "react-router-dom";
 import {ChatsList} from '../components/ChatList/ChatsList';
 import {Chat} from '../components/Chat/Chat';
+import {WithClasses} from "../HOC/WithClasses";
+import {MessageList} from "../components/MessageList/MessageList";
 
 
-const ChatsPage = (props) => {
+const ChatsPage = ({onAddChat, onAddMessage, chats}) => {
+    const {chatId} = useParams();
+
+    const MessageListWithClass = WithClasses(MessageList);
+
     const [messageList, setMessageList] = useState([]);
-    const [chatList, setChatList] = useState([
-        {id: 1, name: 'Users'},
-        {id: 2, name: 'Support'},
-    ]);
+
+    // const [chatList, setChatList] = useState([
+    //     {id: 1, name: 'Users'},
+    //     {id: 2, name: 'Support'},
+    // ]);
 
     const addMessage = newMessage => {
         setMessageList([...messageList, newMessage])
@@ -34,7 +42,7 @@ const ChatsPage = (props) => {
             height: '100%',
             overflow: 'hidden'
         }}>
-            <ChatsList chats={props.chats}/>
+            <ChatsList chats={chats} onAddChat={onAddChat}/>
             <Chat messages={messageList} addMessage={addMessage} />
         </div>
     );
