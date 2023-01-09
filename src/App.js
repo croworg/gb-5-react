@@ -51,21 +51,8 @@ const App = () => {
                         <Route index element={<MainPage/>}/>
                         <Route path='profile' element={<ProfilePage/>}/>
                         <Route path={'chats'}>
-                            <Route
-                                index
-                                element={<ChatsList
-                                    chats={chatsList}
-                                    onAddChat={onAddChat}
-                                />}
-                            />
-                            <Route
-                                path={':chatId'}
-                                element={<ChatsPage
-                                    chats={chatsList}
-                                    onAddMessage={onAddMessage}
-                                    onAddChat={onAddChat}
-                                />}
-                            />
+                            <Route index element={<ChatsList />} />
+                            <Route path={':chatId'} element={<ChatsPage />}/>
                         </Route>
                         <Route path={'*'} element={<p>404 Page Not Found</p>}/>
                     </Route>
