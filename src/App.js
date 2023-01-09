@@ -1,16 +1,17 @@
 import {Route, Routes} from "react-router-dom";
 import {Provider} from "react-redux";
 import {useState} from 'react';
+import {PersistGate} from "redux-persist/integration/react";
 import {nanoid} from 'nanoid';
 
-import {store} from './store'
+import {persistor, store} from './store'
 
 import {NavBar} from './components/NavBar/NavBar';
 import {MainPage} from './Pages/MainPage';
 import {ProfilePage} from './Pages/ProfilePage';
 import {ChatsPage} from './Pages/ChatsPage';
 import {ChatsList} from "./components/ChatList/ChatsList";
-
+import {AboutWithConnect} from "./Pages/AboutPage";
 
 const defaultMessages = {
     Support: [
@@ -20,7 +21,7 @@ const defaultMessages = {
         },
         {
             author: 'user',
-            text: 'Message two'
+            text: 'Message'
         }
     ]
 };
@@ -46,19 +47,22 @@ const App = () => {
 
     return (
         <Provider store={store}>
-            <div className='wrapper'>
-                <Routes>
-                    <Route path='/' element={<NavBar/>}>
-                        <Route index element={<MainPage/>}/>
-                        <Route path='profile' element={<ProfilePage/>}/>
-                        <Route path={'chats'}>
-                            <Route index element={<ChatsList />} />
-                            <Route path={':chatId'} element={<ChatsPage />}/>
+            <PersistGate persistor={persistor}>
+                <div className='wrapper'>
+                    <Routes>
+                        <Route path='/' element={<NavBar/>}>
+                            <Route index element={<MainPage/>}/>
+                            <Route path='profile' element={<ProfilePage/>}/>
+                            <Route path={'chats'}>
+                                <Route index element={<ChatsList/>}/>
+                                <Route path={':chatId'} element={<ChatsPage/>}/>
+                            </Route>
+                            <Route path='about' element={<AboutWithConnect/>}/>
+                            <Route path={'*'} element={<p>404 Page Not Found</p>}/>
                         </Route>
-                        <Route path={'*'} element={<p>404 Page Not Found</p>}/>
-                    </Route>
-                </Routes>
-            </div>
+                    </Routes>
+                </div>
+            </PersistGate>
         </Provider>
     );
 };

@@ -9,7 +9,8 @@ import {NavLink, Outlet} from "react-router-dom";
 const menuItems = [
     {id: 1, name: 'Main', url: ''},
     {id: 2, name: 'Profile', url: 'profile'},
-    {id: 3, name: 'Chats', url: 'chats'}
+    {id: 3, name: 'Chats', url: 'chats'},
+    {id: 4, name: 'About', url: 'about'}
 ];
 
 export const NavBar = () => {
@@ -39,7 +40,7 @@ export const NavBar = () => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <main>
+            <main style={{overflow: 'hidden'}}>
                 <Outlet/>
             </main>
         </>

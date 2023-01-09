@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import * as types from '../store/profile/types'
 import {changeName, toggleProfile} from '../store/profile/actions'
 import {selectName, selectVisible} from "../store/profile/selector";
 import Button from "@mui/material/Button";

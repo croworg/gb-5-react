@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Message.module.css'
+import {AUTHOR} from "../../constants";
 
 export const Message = (props) => {
     function epochToJsDate(ts) {
@@ -8,11 +9,13 @@ export const Message = (props) => {
         return new Date(ts).toLocaleTimeString();
     }
 
+    // debugger;
+
     return (
         <div className={`
         ${styles.message}
-        ${props.author === 'Bot' && styles.botMessage}
-        ${props.author === 'Me' && styles.myMessage}
+        ${props.author === AUTHOR.bot && styles.botMessage}
+        ${props.author === AUTHOR.me && styles.myMessage}
         `}>
             <header>
                 <span className={styles.author}>{props.author}</span>
