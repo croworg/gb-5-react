@@ -9,8 +9,6 @@ export const Message = (props) => {
         return new Date(ts).toLocaleTimeString();
     }
 
-    // debugger;
-
     return (
         <div className={`
         ${styles.message}
