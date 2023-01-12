@@ -1,23 +1,32 @@
 import {connect} from "react-redux";
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {changeName, toggleProfile} from '../store/profile/actions'
 
 import Button from "@mui/material/Button";
-import {Checkbox, TextField} from "@mui/material";
+import {Checkbox, TextField, Typography} from "@mui/material";
+import Box from "@mui/material/Box";
 
 const AboutPage = (props) => {
     const [value, setValue] = useState('');
 
     return (
-        <div style={{ margin: '1rem'}}>
-            <h2>About Page</h2>
-            <br/>
-            <label>Username: </label><span style={{ fontWeight: '700' }}>{props.name}</span>
-            <div>
+        <div className={'page-wrapper'}>
+            <Box sx={{marginBottom: '1rem'}}>
+                <Typography variant={'h5'}>About Page</Typography>
+            </Box>
+            <label>Username: </label><span style={{fontWeight: '700'}}>{props.name}</span>
+            <Box sx={{margin: '1rem 0'}}>
                 <Checkbox size="small" checked={props.visible}/>
-                <Button color={'success'} size={'small'} variant={'contained'} onClick={() => props.toggle()}>Change visible</Button>
-            </div>
-            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center'}}>
+                <Button
+                    color={'success'}
+                    size={'small'}
+                    variant={'contained'}
+                    onClick={() => props.toggle()}
+                >
+                    Change visible
+                </Button>
+            </Box>
+            <div style={{display: 'flex', gap: '1rem', alignItems: 'center'}}>
                 <TextField
                     id="outlined-basic"
                     label="Username"
@@ -27,7 +36,8 @@ const AboutPage = (props) => {
                     value={props.value}
                     onChange={(e) => setValue(e.target.value)}
                 />
-                <Button color={'success'} size={'small'} variant={'contained'} onClick={() => props.changeName(value)}>Change name</Button>
+                <Button color={'success'} size={'small'} variant={'contained'} onClick={() => props.changeName(value)}>Change
+                    name</Button>
             </div>
         </div>
     );
@@ -39,7 +49,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    toggle: () =>  dispatch(toggleProfile()),
+    toggle: () => dispatch(toggleProfile()),
     changeName: value => dispatch(changeName(value))
 });
 
