@@ -1,21 +1,31 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {Divider, List, ListItem, ListItemButton} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
+import {set, push, remove} from 'firebase/database';
+
+import {messagesRef} from '../../services/firebase';
 import {addChat, deleteChat} from "../../store/messages/actions";
 import {selectChat} from "../../store/messages/selectors";
+
+import {Divider, List, ListItem, ListItemButton} from "@mui/material";
 import Button from "@mui/material/Button";
 
-export const ChatsList = () => {
+export const ChatsList = ({messageDB}) => {
     const [value, setValue] = useState('');
     const dispatch = useDispatch();
     const chats = useSelector(selectChat)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!value) return console.warn('Empty chatname!');
+        if (!value) return console.warn('Empty chat name!');
         dispatch(addChat(value));
-        setValue('');
+
+        set(messagesRef, {
+            ...messageDB,
+            [value]: {
+                name: value
+            }
+        });
     };
 
     return (

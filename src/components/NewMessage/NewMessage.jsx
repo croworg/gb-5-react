@@ -3,7 +3,9 @@ import styles from './NewMessage.module.css';
 import React, {useEffect, useRef, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {push} from 'firebase/database';
 
+import {getMessageListById} from '../../services/firebase';
 import {addMessageWithReply} from "../../store/messages/actions";
 
 import MuiTextField from '@mui/material/TextField'
@@ -25,6 +27,11 @@ export const NewMessage = () => {
             timestamp,
             text
         }));
+        push(getMessageListById(chatId), {
+            author: 'Me',
+            timestamp,
+            text
+        })
         // console.log('chatId: ', chatId, ', messageText: ', text);
         setText('');
         inputRef.current?.focus();
