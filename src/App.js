@@ -12,6 +12,7 @@ import {ProfilePage} from './Pages/ProfilePage';
 import {ChatsPage} from './Pages/ChatsPage';
 import {ChatsList} from "./components/ChatList/ChatsList";
 import {AboutWithConnect} from "./Pages/AboutPage";
+import Nobel from "./Pages/Nobel";
 
 const defaultMessages = {
     Support: [
@@ -29,7 +30,7 @@ const defaultMessages = {
 const App = () => {
     const [chats, setChats] = useState(defaultMessages);
 
-    const chatsList = Object.keys(chats).map((chat) => ({
+    /*const chatsList = Object.keys(chats).map((chat) => ({
         id: nanoid(),
         name: chat
     }));
@@ -44,6 +45,7 @@ const App = () => {
     const onAddMessage = text => {
         console.log('message text', text);
     };
+    */
 
     return (
         <Provider store={store}>
@@ -58,6 +60,7 @@ const App = () => {
                                 <Route path={':chatId'} element={<ChatsPage/>}/>
                             </Route>
                             <Route path='about' element={<AboutWithConnect/>}/>
+                            <Route path='nobel' element={<Nobel/>}/>
                             <Route path={'*'} element={<p>404 Page Not Found</p>}/>
                         </Route>
                     </Routes>

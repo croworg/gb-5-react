@@ -3,7 +3,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {changeName, toggleProfile} from '../store/profile/actions'
 import {selectName, selectVisible} from "../store/profile/selector";
 import Button from "@mui/material/Button";
-import {Checkbox, TextField} from "@mui/material";
+import {Checkbox, TextField, Typography} from "@mui/material";
+import Box from "@mui/material/Box";
 
 export const ProfilePage = () => {
     const name = useSelector(selectName);
@@ -14,16 +15,17 @@ export const ProfilePage = () => {
     const dispatch = useDispatch();
 
     return (
-        <div style={{ margin: '1rem'}}>
-            <h2>Profile Page</h2>
-            <br/>
+        <div className={'page-wrapper'}>
+            <Box sx={{marginBottom: '1rem'}}>
+                <Typography variant={'h5'}>Profile Page</Typography>
+            </Box>
             <label>Username: </label><span style={{ fontWeight: '700' }}>{name}</span>
-            <div>
+            <Box sx={{margin: '1rem 0'}}>
                 <Checkbox size="small" checked={visible}/>
                 {/*<input type="checkbox" checked={visible} />*/}
                 <Button color={'success'} size={'small'} variant={'contained'} onClick={() => dispatch(toggleProfile())}>Change visible</Button>
                 {/*<button onClick={() => dispatch()}>Change visible</button>*/}
-            </div>
+            </Box>
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center'}}>
                 <TextField
                     id="outlined-basic"
