@@ -2,11 +2,13 @@
     display: grid;
     grid-template-rows: 60px 1fr 80px;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    overflow: hidden;
     margin-left: .5rem;
 }
 
 .heading {
     padding: 0.8rem;
-    background-color: #befacd;
+    background-color: #c2f8cb;
+    /*background-color: #befacd;*/
 }

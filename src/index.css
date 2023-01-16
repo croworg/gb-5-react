@@ -17,4 +17,17 @@ code {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  height: 100vh;
+}
+
+.page-wrapper {
+  padding: 1rem;
+  overflow-y: scroll;
+  height: 100%;
 }

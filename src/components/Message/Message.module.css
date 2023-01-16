@@ -6,6 +6,36 @@
     padding: .4rem .8rem;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 1rem;
-    font-weight: 700;
+    /*font-weight: 700;*/
+    background-color: #f0fff1;
     color: #333;
+}
+
+.message.botMessage {
+    background-color: #b3e9c7;
+}
+
+.message.myMessage {
+    text-align: right;
+    background-color: snow;
+}
+
+.message header {
+    display: flex;
+    flex-direction: column;
+    /*gap: .5rem;*/
+}
+
+.message.myMessage header {
+    /*flex-direction: row-reverse;*/
+}
+
+.message .author {
+    font-size: .9rem;
+    font-weight: bold;
+}
+
+.message .date {
+    font-size: .75rem;
+    font-weight: normal;
 }
