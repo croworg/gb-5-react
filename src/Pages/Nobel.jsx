@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {API} from "../constants";
 
-import Button from "@mui/material/Button";
+import {Button} from "../components/ui/Button/Button";
 import Box from "@mui/material/Box";
 import {Card, CardActions, CardContent, LinearProgress, Typography} from "@mui/material";
 
@@ -41,7 +41,7 @@ const Nobel = () => {
             <Box sx={{marginBottom: '1rem'}}>
                 <Typography variant={'h5'}>Nobel Prize Page</Typography>
             </Box>
-            <Button variant={'contained'} color={'success'} onClick={getLaureates}>
+            <Button onClick={getLaureates}>
                 Load info
             </Button>
             {loading && (

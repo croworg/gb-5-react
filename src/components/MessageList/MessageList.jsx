@@ -1,7 +1,7 @@
 import styles from './MessageList.module.css'
-import {push} from 'firebase/database';
-
-import {getMessageListById} from '../../services/firebase';
+// import {push} from 'firebase/database';
+//
+// import {getMessageListById} from '../../services/firebase';
 import {Message} from "../Message/Message";
 
 export const MessageList = ({messages}) => {

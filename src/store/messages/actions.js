@@ -22,6 +22,7 @@ export const addMessage = (chatName, message) => ({
 
 let timeout;
 export const addMessageWithReply = (chatName, message) => (dispatch) => {
+    console.log('ADD_MESSAGE', chatName, message);
     dispatch(addMessage(chatName, message));
 
     if (message.author !== AUTHOR.bot) {

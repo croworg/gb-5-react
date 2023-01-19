@@ -8,8 +8,8 @@ import {push} from 'firebase/database';
 import {getMessageListById} from '../../services/firebase';
 import {addMessageWithReply} from "../../store/messages/actions";
 
+import {Button} from "../ui/Button/Button";
 import MuiTextField from '@mui/material/TextField'
-import MuiButton from '@mui/material/Button'
 
 export const NewMessage = () => {
     const timestamp = Date.now();
@@ -55,17 +55,11 @@ export const NewMessage = () => {
                     id={'outlined-basic'}
                     label={'Your message'}
                     variant={'outlined'}
+                    size={'small'}
                     value={text}
                     onChange={event => setText(event.target.value)}
                 />
-                <MuiButton
-                    color={'success'}
-                    variant={'contained'}
-                    size={'large'}
-                    onClick={handleSubmit}
-                >
-                    Send
-                </MuiButton>
+                <Button onClick={handleSubmit}>Send</Button>
             </form>
         </div>
     );

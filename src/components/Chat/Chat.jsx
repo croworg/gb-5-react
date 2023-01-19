@@ -18,7 +18,7 @@ export const Chat = ({chats}) => {
 
     const messagesChat = chats.find(chat => chat?.name === chatId);
     let messages;
-    if (messagesChat.messages) {
+    if (messagesChat?.messages) {
         messages = Object.entries(messagesChat.messages).map(mes => ({
             author: mes[1].author,
             text: mes[1].text,

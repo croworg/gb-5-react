@@ -1,18 +1,17 @@
-import {AUTHOR} from "../../constants";
+// import {AUTHOR} from "../../constants";
 import {ADD_CHAT, DELETE_CHAT, ADD_MESSAGE} from "./actions";
 
-const initialState = {
-    support: [
-        {
-            author: AUTHOR.bot,
-            text: 'Welcome! We glad to see you here!'
-        },
-        {
-            author: AUTHOR.user,
-            text: 'Message two'
-        }
-    ]
-};
+const initialState = {};
+    // support: [
+    //     {
+    //         author: AUTHOR.bot,
+    //         text: 'Welcome! We glad to see you here!'
+    //     },
+    //     {
+    //         author: AUTHOR.user,
+    //         text: 'Message two'
+    //     }
+    // ]
 
 export const messagesReducer = (state = initialState, action) => {
     const {type, payload} = action;
@@ -44,4 +43,4 @@ export const messagesReducer = (state = initialState, action) => {
         default:
             return state;
     }
-}
+};
