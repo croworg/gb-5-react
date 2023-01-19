@@ -1,79 +1,83 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import styles from './ChatsList.module.scss'
+
+import React, {useEffect, useState} from "react";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {set, push, remove} from 'firebase/database';
+import {set} from 'firebase/database';
 
 import {messagesRef} from '../../services/firebase';
 import {addChat, deleteChat} from "../../store/messages/actions";
 import {selectChat} from "../../store/messages/selectors";
 
-import {Divider, List, ListItem, ListItemButton} from "@mui/material";
+import {List, ListItem, ListItemButton} from "@mui/material";
 import Button from "@mui/material/Button";
 
-export const ChatsList = ({messageDB}) => {
-    const [value, setValue] = useState('');
+export const ChatsList = ({messagesDB}) => {
     const dispatch = useDispatch();
-    const chats = useSelector(selectChat)
+    const navigate = useNavigate();
+
+    const chats = useSelector(selectChat);
+    const {chatId} = useParams();
+    const [newName, setNewName] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!value) return console.warn('Empty chat name!');
-        dispatch(addChat(value));
-
+        if (!newName) return console.warn('Empty chat name!');
+        dispatch(addChat(newName));
         set(messagesRef, {
-            ...messageDB,
-            [value]: {
-                name: value
+            ...messagesDB,
+            [newName]: {
+                name: newName
             }
         });
+        setNewName('');
+        navigate(`/chats/${newName}`);
     };
 
+    const onDeleteChat = (name) => {
+        dispatch(deleteChat(name));
+    };
+
+    useEffect(() => {
+        if (chats.find(chat => chat?.name === chatId)) {
+            navigate(`/chats/${chatId}`);
+        } else {
+            navigate('/chats');
+        }
+    }, [chats]);
+
     return (
-        <nav
-            style={{width: '200px', flex: '0 0 200px'}}
-            aria-label="secondary mailbox folders"
-        >
+        <nav className={styles.navbar}>
             <List>
                 {chats.map((item) => (
-                    <div key={item.id}>
-                        <ListItem disablePadding>
-                            <ListItemButton
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between'
-                                }}>
-                                <Link to={`/chats/${item.name}`}>{item.name}</Link>
-                                <Button
-                                    style={{
-                                        fontSize: '130%',
-                                        lineHeight: '15px',
-                                        minWidth: '20px',
-                                        minHeight: '20px',
-                                        marginLeft: '1rem',
-                                        padding: '0'
-                                    }}
+                    <ListItem disablePadding divider key={item.id}>
+                        <NavLink className={styles.link} color={'success'} to={`/chats/${item.name}`}>
+                            <ListItemButton className={styles.listItem} color={'success'}>
+                                <span className={styles.chatName}>{item.name}</span>
+                                <Button className={styles.closeButton}
                                     color={'error'}
                                     variant={'outlined'}
-                                    onClick={() => dispatch(deleteChat(item.name))}
-                                >
-                                    &times;
-                                </Button>
+                                    onClick={() => onDeleteChat(item.name)}
+                                >&times;</Button>
                             </ListItemButton>
-                        </ListItem>
-                        <Divider/>
-                    </div>
+                        </NavLink>
+                    </ListItem>
                 ))}
-                <ListItem disablePadding>
-                    <ListItemButton>
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                type="text"
-                                value={value}
-                                onChange={(e) => setValue(e.target.value)}
-                            />
-                            <button type={'submit'} disabled={!value}>Add chat</button>
-                        </form>
-                    </ListItemButton>
+                <ListItem divider>
+                    <form className={styles.newChatForm} onSubmit={handleSubmit}>
+                        <input className={styles.newChatFormInput}
+                            type="text"
+                            placeholder={'New chat'}
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                        />
+                        <Button className={styles.newChatFormButton}
+                            type={'submit'}
+                            color={'success'}
+                            variant={'outlined'}
+                            disabled={!newName}
+                        >&#43;</Button>
+                    </form>
                 </ListItem>
             </List>
         </nav>

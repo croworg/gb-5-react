@@ -32,6 +32,6 @@ export const addMessageWithReply = (chatName, message) => (dispatch) => {
                 author: AUTHOR.bot,
                 text: 'Hey, glad to see you here!',
             }))
-        }, 1000);
+        }, 5000);
     }
 };
