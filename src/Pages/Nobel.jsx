@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {API} from "../constants";
 
-import Button from "@mui/material/Button";
+import {Button} from "../components/ui/Button/Button";
 import Box from "@mui/material/Box";
 import {Card, CardActions, CardContent, LinearProgress, Typography} from "@mui/material";
 
@@ -20,11 +20,16 @@ const Nobel = () => {
 
             const data = await res.json();
             setLaureates(data.laureates);
+            console.log(data.laureates);
         } catch (err) {
             return setError(`Error: ${err.message}`);
         } finally {
             setLoading(false);
         }
+    };
+
+    const capitalize = (s) => {
+        return s[0].toUpperCase() + s.slice(1);
     };
 
     // useEffect(() => {
@@ -36,7 +41,7 @@ const Nobel = () => {
             <Box sx={{marginBottom: '1rem'}}>
                 <Typography variant={'h5'}>Nobel Prize Page</Typography>
             </Box>
-            <Button variant={'contained'} color={'success'} onClick={getLaureates}>
+            <Button onClick={getLaureates}>
                 Load info
             </Button>
             {loading && (
@@ -48,9 +53,6 @@ const Nobel = () => {
                 <Box sx={{margin: '1rem 0'}} key={item.id}>
                     <Card sx={{minWidth: 275}}>
                         <CardContent>
-                            <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
-                                Laureate
-                            </Typography>
                             <Typography variant="h5" component="div">
                                 {item.fullName.en}
                             </Typography>
@@ -60,17 +62,21 @@ const Nobel = () => {
                             <Typography variant="body2">
                                 {item.birth.place?.locationString.en}
                             </Typography>
+                            <br/>
+                            <Typography variant={'h6'}>Prizes:</Typography>
+                            {item.nobelPrizes.map((prize) => (
+                                <Typography>{prize.category.en}: {capitalize(prize.prizeStatus)} in <b>{prize.awardYear}</b> {prize.motivation.en}</Typography>
+                            ))}
                         </CardContent>
                         <CardActions>
-                            <Button size="small" href={item.sameAs[0]}>Learn more on wiki page</Button>
+                            <Button size="small" href={item.sameAs[0]}>wiki page</Button>
                         </CardActions>
                     </Card>
                 </Box>
             ))}
             {error && (
-                <Box sx={{ my: '1rem'}}>
+                <Box sx={{my: '1rem'}}>
                     <Typography sx={{my: '.5rem', color: 'red'}}>{error}</Typography>
-                    {/*<Button variant={'contained'} color={'error'} onClick={getLaureates}>retry</Button>*/}
                 </Box>
             )}
         </div>

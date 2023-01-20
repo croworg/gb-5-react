@@ -22,6 +22,7 @@ export const addMessage = (chatName, message) => ({
 
 let timeout;
 export const addMessageWithReply = (chatName, message) => (dispatch) => {
+    console.log('ADD_MESSAGE', chatName, message);
     dispatch(addMessage(chatName, message));
 
     if (message.author !== AUTHOR.bot) {
@@ -32,6 +33,6 @@ export const addMessageWithReply = (chatName, message) => (dispatch) => {
                 author: AUTHOR.bot,
                 text: 'Hey, glad to see you here!',
             }))
-        }, 1000);
+        }, 5000);
     }
 };

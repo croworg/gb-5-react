@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {changeName, toggleProfile} from '../store/profile/actions'
 import {selectName, selectVisible} from "../store/profile/selector";
-import Button from "@mui/material/Button";
+import {Button} from "../components/ui/Button/Button";
 import {Checkbox, TextField, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 
@@ -23,7 +23,7 @@ export const ProfilePage = () => {
             <Box sx={{margin: '1rem 0'}}>
                 <Checkbox size="small" checked={visible}/>
                 {/*<input type="checkbox" checked={visible} />*/}
-                <Button color={'success'} size={'small'} variant={'contained'} onClick={() => dispatch(toggleProfile())}>Change visible</Button>
+                <Button onClick={() => dispatch(toggleProfile())}>Change visible</Button>
                 {/*<button onClick={() => dispatch()}>Change visible</button>*/}
             </Box>
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center'}}>
@@ -44,7 +44,7 @@ export const ProfilePage = () => {
                 {/*    onChange={(e) => setValue(e.target.value)}*/}
                 {/*/>*/}
                 {/* <button onClick={hendleChange}>Change name</button> */}
-                <Button color={'success'} size={'small'} variant={'contained'} onClick={() => dispatch(changeName(value))}>Change name</Button>
+                <Button onClick={() => dispatch(changeName(value))}>Change name</Button>
             </div>
         </div>
     );

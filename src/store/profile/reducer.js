@@ -1,12 +1,13 @@
-import {CHANGE_NAME, TOGGLE_PROFILE} from "./actions";
+import {CHANGE_NAME, TOGGLE_PROFILE, IS_AUTH} from "./actions";
 
 const initialState = {
   name: 'MegaUser',
-  visible: true
+  visible: true,
+  isAuth: false
 }
 
 export const profileReducer = (state = initialState, action) => {
-  const { type, payload } = action
+  const {type, payload} = action
   switch (type) {
     case CHANGE_NAME:
       return {
@@ -17,6 +18,12 @@ export const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         visible: !state.visible
+      }
+
+    case IS_AUTH:
+      return {
+        ...state,
+        isAuth: payload
       }
 
     default:

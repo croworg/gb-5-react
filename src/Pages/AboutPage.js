@@ -2,9 +2,9 @@ import {connect} from "react-redux";
 import React, {useState} from 'react';
 import {changeName, toggleProfile} from '../store/profile/actions'
 
-import Button from "@mui/material/Button";
 import {Checkbox, TextField, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
+import {Button} from "../components/ui/Button/Button";
 
 const AboutPage = (props) => {
     const [value, setValue] = useState('');
@@ -17,12 +17,7 @@ const AboutPage = (props) => {
             <label>Username: </label><span style={{fontWeight: '700'}}>{props.name}</span>
             <Box sx={{margin: '1rem 0'}}>
                 <Checkbox size="small" checked={props.visible}/>
-                <Button
-                    color={'success'}
-                    size={'small'}
-                    variant={'contained'}
-                    onClick={() => props.toggle()}
-                >
+                <Button onClick={() => props.toggle()}>
                     Change visible
                 </Button>
             </Box>
@@ -36,8 +31,7 @@ const AboutPage = (props) => {
                     value={props.value}
                     onChange={(e) => setValue(e.target.value)}
                 />
-                <Button color={'success'} size={'small'} variant={'contained'} onClick={() => props.changeName(value)}>Change
-                    name</Button>
+                <Button onClick={() => props.changeName(value)}>Change name</Button>
             </div>
         </div>
     );

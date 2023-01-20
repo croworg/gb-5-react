@@ -1,15 +1,19 @@
 import {ChatsList} from '../components/ChatList/ChatsList';
 import {Chat} from '../components/Chat/Chat';
 
-export const ChatsPage = (props) => {
+export const ChatsPage = ({chats, messagesDB}) => {
     return (
         <div style={{
             display: 'flex',
             height: '100%',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            // gap: '.2rem'
         }}>
-            <ChatsList />
-            <Chat />
+            <ChatsList messagesDB={messagesDB}/>
+            <Chat
+                chats={chats}
+                messagesDB={messagesDB}
+            />
         </div>
     );
 };
